@@ -1,5 +1,9 @@
 # 更新日志
 
+## 1.1.5 (2026-07-24)
+### 问题修复
+- **兼容 LLM 传入浮点序号**：`astr_meting_music` 工具在使用 `index` 前尝试转为 `int`，避免模型传入 `0.0` 等导致 `list indices must be integers or slices, not float`（#31）
+
 ## 1.1.4 (2026-07-12)
 ### 问题修复
 - **修复yield故障**：修复 #28 中报告的 yield 问题
