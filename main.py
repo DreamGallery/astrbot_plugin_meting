@@ -2069,7 +2069,7 @@ class MetingPlugin(Star):
             # LLM 工具调用常把整数序号传成 0.0 / "0" 等，list 下标需要真正的 int
             try:
                 index = int(index)
-            except (TypeError, ValueError):
+            except (TypeError, ValueError, OverflowError):
                 return f"无效的序号：{index}，请传入整数序号（-1 表示仅搜索）。"
 
             if source not in SOURCE_DISPLAY:
