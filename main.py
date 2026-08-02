@@ -25,7 +25,7 @@ from astrbot.core.config.default import VERSION
 from astrbot.core.pipeline.respond import stage
 from astrbot.core.utils.metrics import Metric
 
-PL_VERSION = "1.1.4"
+PL_VERSION = "1.1.5"
 
 SOURCE_DISPLAY = {
     "tencent": "QQ音乐",
@@ -2066,6 +2066,12 @@ class MetingPlugin(Star):
             index (number): 歌曲序号。-1 表示仅搜索，0 表示第一首，依次类推
         """
         try:
+            # LLM 工具调用常把整数序号传成 0.0 / "0" 等，list 下标需要真正的 int
+            try:
+                index = int(index)
+            except (TypeError, ValueError, OverflowError):
+                return f"无效的序号：{index}，请传入整数序号（-1 表示仅搜索）。"
+
             if source not in SOURCE_DISPLAY:
                 return f"不支持的点歌源：{source}，请从 netease, tencent 中选择。"
 
